@@ -45,7 +45,7 @@ For example, if the web server is serving at http://localhost:8080, and the word
 
 1. Run unit tests `cd doc-search/src/ && python -m unittest -b test_index`
 2. Build the container image: `docker build . -t doc-search`
-3. Run the app: `docker run -p 8080:8080 doc-search`.
+3. Run the app: `docker run -p 8080:8080 doc-search`. **GabiD - broken app, defaults to serve on 127.0.0.1**
 4. Test the app: you can use `curl` to query it, for example: `curl http://localhost:8080/?q=hello+world` will return a JSON document with all of the documents containing both `hello` and `world`
 
 ## Tasks
@@ -55,7 +55,9 @@ For example, if the web server is serving at http://localhost:8080, and the word
 The app currently has a `Dockerfile` included under `doc-search/`.
 
 1. Every commit to application code (`.py` files) results in a slow build of the container image. Modify the `Dockerfile` to make the build faster.
+    **GabiD - move app copy command to be last to utilize the docker cache**
 2. How can you minimize the size of the resulting container image? Modify the `Dockerfile` or describe your solution.
+    **GabiD - switch to alpine, disable generation of .pyc files during build down to ~50Mib vs 130Mib**
 
 ### Part 2: Deploying to Kubernetes
 

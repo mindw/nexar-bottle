@@ -12,4 +12,4 @@ if __name__ == '__main__':
         print(q, type(q))
         return dict(results=list(index.search(str(q))))
 
-    run()
+    run(host="0.0.0.0", debug=True)
