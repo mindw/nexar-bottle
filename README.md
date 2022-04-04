@@ -91,7 +91,6 @@ knowledge of the container entrypoint/cmd:
             sleep 1m;
             python3 __init__.py /data
 ```
-**<br>
 
 ### Part 3: Observability
 
