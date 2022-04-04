@@ -100,6 +100,12 @@ knowledge of the container entrypoint/cmd:
 2. Add code and/or configuration that installs Prometheus onto the k8s cluster and configures it to scrape metrics from the app.
 **GabiD - added plain manifests to deploy prometheus and expose using node-port**<br>
 3. Using a load generator like [`hey`](https://github.com/rakyll/hey), generate some load on the app.
+**GabiD:**
+```
+curl -o srv.exe -L https://hey-release.s3.us-east-2.amazonaws.com/hey_windows_amd6
+SRV_URL=$(minikube service --url doc-search)
+./hey "${SRV_URL}/?q=hello+world"
+```
 4. Using the built-in web UI for Prometheus, chart the p50, p90, p99 latencies of `search/` requests over the load you generated before.
 **GabiD:**
 ```
