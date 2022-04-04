@@ -76,7 +76,7 @@ Here you will deploy the application to a local Minikube.
 **GabiD - done - `minikube create`, `minikube image load --daemon doc-search-alpine:latest`.
 used latest to keep things simple.**<br>
 3. Verify that you can call the service from outside the cluster.
-**GabiD - use NodePort for simplicity - `minikube service --utl doc-search`**<br>
+**GabiD - use NodePort for simplicity - `minikube service --url doc-search`**<br>
 4. We want Kubernetes to tolerate a slow start for our app. Implement this behavior in your chart. Bonus points if you can simulate a slow start and test your solution.
 
 **GabiD - unclear. Probes are implemented in the service. Possible ways to simulate this:**
@@ -112,7 +112,7 @@ PROM_URL=$(minikube service --url prometheus -n kube-system)
 python -m webbrowser -t '${PROM_URL}/graph?g0.expr=histogram_quantile(0.50%2C%20sum(rate(response_latency_seconds_bucket%5B10m%5D))%20by%20(le))&g0.tab=0&g0.stacked=0&g0.show_exemplars=0&g0.range_input=1h&g1.expr=histogram_quantile(0.90%2C%20sum(rate(response_latency_seconds_bucket%5B10m%5D))%20by%20(le))&g1.tab=0&g1.stacked=0&g1.show_exemplars=0&g1.range_input=1h&g2.expr=histogram_quantile(0.99%2C%20sum(rate(response_latency_seconds_bucket%5B10m%5D))%20by%20(le))&g2.tab=0&g2.stacked=0&g2.show_exemplars=0&g2.range_input=1h''
 ```
 6. (Bonus) which other key metrics are important/useful to instrument in a web service like this? Add them as you see fit and show how you can query them in Prometheus.
-**GabiD - Error rates, saturation. See USE method. Resource usages - CPU, memory, network**<br>
+**GabiD - Error rates, saturation. See USE method. Resource usages - CPU, memory, network. The default prometheus python client metrics expose a good set of defaults. Cadvisor metrics complete a lot of the picture. Once behind an ingress with SLA, https://github.com/prometheus/blackbox_exporter is a free way to measure this**<br>
 ---
 
 Good luck!
