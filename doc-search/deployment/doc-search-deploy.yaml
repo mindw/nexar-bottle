@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: doc-search
+  name: doc-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: doc-search
+  template:
+    metadata:
+      labels:
+        app: doc-search
+    spec:
+      enableServiceLinks: false
+      containers:
+      - image: docker.io/library/doc-search-alpine:latest
+      #- image: doc-search-alpine:latest
+        imagePullPolicy: Never
+        name: doc-search-alpine
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "100Mi"
+        ports:
+        - containerPort: 8080
+          name: http
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          # let's wait 1m before start hammering the liveness probe
+          initialDelaySeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: http

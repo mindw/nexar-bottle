@@ -1,0 +1,18 @@
+# make service headless, preperation for statefulset.
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus
+  namespace: kube-system
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '9090'
+spec:
+  selector:
+    app: prometheus
+  type: NodePort
+  ports:
+  - port: 9090
+    name: http
+    targetPort: http
+    nodePort: 31909
