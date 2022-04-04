@@ -96,8 +96,8 @@ knowledge of the container entrypoint/cmd:
 
 1. In the app's Python code, instrument latency of the `search/` endpoint, and expose a metrics HTTP endpoint on port `8000`. You may use any open-source library for this purpose.
 **GabiD - programs doesn't have a `/search` endpoint**<br>
-**GabiD - It seems to be very hard to expose the same app on two ports using WSGI and bottle - seems out of scope**
-2. Add code and/or configuration that installs Prometheus onto the k8s cluster and configures it to scrape metrics from the app. **
+**GabiD - It seems to be very hard to expose the same app on two ports using WSGI and bottle - out of scope?**
+2. Add code and/or configuration that installs Prometheus onto the k8s cluster and configures it to scrape metrics from the app.
 **GabiD - added plain manifests to deploy prometheus and expose using node-port**<br>
 3. Using a load generator like [`hey`](https://github.com/rakyll/hey), generate some load on the app.
 4. Using the built-in web UI for Prometheus, chart the p50, p90, p99 latencies of `search/` requests over the load you generated before.
